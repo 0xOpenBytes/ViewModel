@@ -65,8 +65,8 @@ struct InputView: View {
     @ObservedObject var viewModel = InputViewModel()
 
     var body: some View {
-        viewModel.view { content, binding in
-            TextField("Enter some text", text: binding(\.textInput))
+        viewModel.view { content in
+            TextField("Enter some text", text: viewModel.binding(\.textInput))
         }
     }
 }

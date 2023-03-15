@@ -35,7 +35,7 @@ import SwiftUI
   - `capabilities`: A property that holds the capabilities of the view model.
   - `input`: A published property that holds the input of the view model from the view.
   - `content`: An open computed property that must be implemented by the subclass to provide the content of the view.
-  - `view`: A method that returns a view with the specified content handler or content and binding handler.
+  - `view`: A method that returns a view with the specified content handler.
   - `binding`: A method that returns a binding for the specified key path of the input.
 
   Usage:
@@ -43,7 +43,7 @@ import SwiftUI
   - Create a subclass of `ViewModel` with `Capabilities`, `Input`, and `Content` types.
   - Implement the `content` property with the content for the view.
   - Optionally, provide additional properties and methods to manage the state and behavior of the view.
-  - Use the `view` method to return a view with the specified content and binding.
+  - Use the `view` method to return a view with the specified content.
   - Use the `binding` method to return a binding for the specified key path of the input.
 */
 open class ViewModel<Capabilities, Input, Content>: ObservableObject {
@@ -83,17 +83,6 @@ open class ViewModel<Capabilities, Input, Content>: ObservableObject {
     /// - Returns: A view with the specified content.
     open func view(@ViewBuilder content contentHandler: (Content) -> some View) -> some View {
         contentHandler(content)
-    }
-
-    /// Returns a view with the specified content and binding handler.
-    ///
-    /// - Parameters:
-    ///   - contentHandler: The closure to use to create the view content.
-    ///   - bindingHandler: The closure to use to bind a value to a key path of the input.
-    ///
-    /// - Returns: A view with the specified content and binding.
-    open func view<Value>(@ViewBuilder content contentHandler: (Content, KeyPathBinding<Value>) -> some View) -> some View {
-        contentHandler(content, binding)
     }
 
     /// Returns a binding for the specified key path of the Input.
