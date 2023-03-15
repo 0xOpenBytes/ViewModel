@@ -81,7 +81,7 @@ open class ViewModel<Capabilities, Input, Content>: ObservableObject {
     /// - Parameter contentHandler: The closure to use to create the view content.
     ///
     /// - Returns: A view with the specified content.
-    open func view(content contentHandler: (Content) -> some View) -> some View {
+    open func view(@ViewBuilder content contentHandler: (Content) -> some View) -> some View {
         contentHandler(content)
     }
 
@@ -92,7 +92,7 @@ open class ViewModel<Capabilities, Input, Content>: ObservableObject {
     ///   - bindingHandler: The closure to use to bind a value to a key path of the input.
     ///
     /// - Returns: A view with the specified content and binding.
-    open func view<Value>(content contentHandler: (Content, KeyPathBinding<Value>) -> some View) -> some View {
+    open func view<Value>(@ViewBuilder content contentHandler: (Content, KeyPathBinding<Value>) -> some View) -> some View {
         contentHandler(content, binding)
     }
 
