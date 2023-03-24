@@ -47,11 +47,6 @@ import SwiftUI
   - Use the `binding` method to return a binding for the specified key path of the input.
 */
 open class ViewModel<Capabilities, Input, Content>: ObservableObject {
-    /// A helper type that returns a binding for the specified key path.
-    ///
-    /// This is used by the `view` method with the binding handler or the `binding` function.
-    public typealias KeyPathBinding<Value> = (_ keyPath: WritableKeyPath<Input, Value>) -> Binding<Value>
-
     /// A type that defines the capabilities of the view model.
     public let capabilities: Capabilities
 
