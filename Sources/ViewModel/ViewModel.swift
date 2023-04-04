@@ -46,9 +46,9 @@ import SwiftUI
   - Use the `view` method to return a view with the specified content.
   - Use the `binding` method to return a binding for the specified key path of the input.
 */
-open class ViewModel<Capabilities, Input, Content>: ObservableObject {
+open class ViewModel<Capabilities, Input, Content>: Mediatable {
     /// A type that defines the capabilities of the view model.
-    public let capabilities: Capabilities
+    public var capabilities: Capabilities
 
     /// The input of the view model from the view.
     @Published open var input: Input
@@ -69,30 +69,5 @@ open class ViewModel<Capabilities, Input, Content>: ObservableObject {
     ) {
         self.capabilities = capabilities
         self.input = input
-    }
-
-    /// Returns a view with the specified content handler.
-    ///
-    /// - Parameter contentHandler: The closure to use to create the view content.
-    ///
-    /// - Returns: A view with the specified content.
-    open func view(@ViewBuilder content contentHandler: (Content) -> some View) -> some View {
-        contentHandler(content)
-    }
-
-    /// Returns a binding for the specified key path of the Input.
-    ///
-    /// - Parameter keyPath: The key path to create a binding for.
-    ///
-    /// - Returns: A binding for the specified key path.
-    open func binding<Value>(_ keyPath: WritableKeyPath<Input, Value>) -> Binding<Value> {
-        Binding(
-            get: { self.input[keyPath: keyPath] },
-            set: { newValue in
-                DispatchQueue.main.async {
-                    self.input[keyPath: keyPath] = newValue
-                }
-            }
-        )
     }
 }
